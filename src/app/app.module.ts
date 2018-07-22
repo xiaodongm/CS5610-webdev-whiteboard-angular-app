@@ -12,6 +12,8 @@ import {UserServiceClient} from './services/user.service.client';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CourseViewerComponent } from './course-viewer/course-viewer.component';
+import { ModuleListComponent } from './module-list/module-list.component';
+import {ModuleServiceClient} from './services/module.service.client';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { CourseViewerComponent } from './course-viewer/course-viewer.component';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    CourseViewerComponent
+    CourseViewerComponent,
+    ModuleListComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { CourseViewerComponent } from './course-viewer/course-viewer.component';
   ],
   providers: [
     CourseServiceClient,
-    UserServiceClient
+    UserServiceClient,
+    ModuleServiceClient,
   ],
   bootstrap: [AppComponent]
 })
