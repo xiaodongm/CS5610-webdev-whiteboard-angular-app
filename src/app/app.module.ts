@@ -9,13 +9,15 @@ import { CourseGridComponent } from './course-grid/course-grid.component';
 import {CourseServiceClient} from './services/course.service.client';
 import { RegisterComponent } from './register/register.component';
 import {UserServiceClient} from './services/user.service.client';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     CourseGridComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
