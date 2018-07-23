@@ -1,0 +1,59 @@
+<div id="widgetList" *ngFor="let widget of widgets">
+  <div [ngSwitch]="widget.widgetType">
+
+    <div class="jumbotron" *ngSwitchCase="'Heading'">
+      <h3>Heading Widget</h3>
+      <div [ngSwitch]="widget.size">
+        <h1 *ngSwitchCase="'1'">{{widget.text}}</h1>
+        <h2 *ngSwitchCase="'2'">{{widget.text}}</h2>
+        <h3 *ngSwitchCase="'3'">{{widget.text}}</h3>
+        <!--<h4 *ngSwitchCase="'4'">{{widget.text}}</h4>-->
+        <!--<h5 *ngSwitchCase="'5'">{{widget.text}}</h5>-->
+        <!--<h6 *ngSwitchCase="'6'">{{widget.text}}</h6>-->
+      </div>
+      <hr class="my-4">
+    </div>
+
+    <div class="jumbotron" *ngSwitchCase="'Link'">
+      <h3>Link Widget</h3>
+      <a href="{{widget.href}}">{{widget.text}}</a>
+      <hr class="my-4">
+    </div>
+
+    <div class="jumbotron" *ngSwitchCase="'List'">
+      <h3>ListWidget</h3>
+      <div [ngSwitch]="widget.listType">
+        <ul *ngSwitchCase="'Unordered'">
+          <li
+              *ngFor="let item of widget.listItems.split('\n')">
+            {{item}}
+          </li>
+        </ul>
+        <ol *ngSwitchCase="'Ordered'">
+          <li
+              *ngFor="let item of widget.listItems.split('\n')">
+            {{item}}
+          </li>
+        </ol>
+
+      </div>
+      <hr class="my-4">
+    </div>
+
+    <div class="jumbotron" *ngSwitchCase="'Paragraph'">
+      <h3>Paragraph Widget</h3>
+      <p>{{widget.text}}</p>
+      <hr class="my-4">
+    </div>
+
+    <div class="jumbotron" *ngSwitchCase="'Image'">
+      <h3>Image Widget</h3>
+      <img src={{widget.src}}>
+      <hr class="my-4">
+    </div>
+
+    <!--<div *ngSwitchCase="'Exam'">-->
+      <!--<h1>Exam Widget</h1>-->
+    <!--</div>-->
+  </div>
+</div>
