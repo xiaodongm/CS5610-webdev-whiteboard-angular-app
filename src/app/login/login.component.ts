@@ -16,8 +16,15 @@ export class LoginComponent implements OnInit {
     if (username && password) {
       this.service
         .login(username, password)
-        .then(() => {
-          this.router.navigate(['profile']);
+        .then(response => {
+          return response.json();
+        })
+        .then((user) => {
+          if (!user.err) {
+            this.router.navigate(['profile']);
+          } else {
+            alert('User not exist or Password incorrect');
+          }
         });
     } else {
       alert('Please enter valid Username and Password!');
