@@ -23,6 +23,7 @@ import {TopicServiceClient} from './services/topic.service.client';
 import { AdminComponent } from './admin/admin.component';
 import { SectionListComponent } from './section-list/section-list.component';
 import {SectionServiceClient} from './services/section.service.client';
+import { SectionViewerComponent } from './section-viewer/section-viewer.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {SectionServiceClient} from './services/section.service.client';
     WidgetListComponent,
     TopicTabsComponent,
     AdminComponent,
-    SectionListComponent
+    SectionListComponent,
+    SectionViewerComponent
   ],
   imports: [
     BrowserModule,

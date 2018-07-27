@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {ProfileComponent} from './profile/profile.component';
 import {CourseViewerComponent} from './course-viewer/course-viewer.component';
 import {AdminComponent} from './admin/admin.component';
+import {SectionViewerComponent} from './section-viewer/section-viewer.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -13,7 +14,8 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'admin', component: AdminComponent},
-  { path: 'course/:courseId/section', component: AdminComponent },
+  { path: 'admin/course/:courseId/section', component: AdminComponent },
+  { path: 'course/:courseId/section', component: SectionViewerComponent },
   { path: 'course/:courseId', component: CourseViewerComponent },
   { path: 'course/:courseId/module/:moduleId', component: CourseViewerComponent },
   { path: 'course/:courseId/module/:moduleId/lesson/:lessonId', component: CourseViewerComponent },
