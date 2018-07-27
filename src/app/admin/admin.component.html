@@ -1,6 +1,21 @@
-<div class="container-fluid">
-  <h1>Admin Page</h1>
+<div class="row container-fluid">
+  <div class="col-4">
+    <h1>Admin</h1>
+    <a routerLink="/profile">Profile</a>
+    <a routerLink="/home">Home</a>
+    <ul class="list-group">
+      <li class="list-group-item active">Courses</li>
+      <li *ngFor="let course of courses"
+          class="list-group-item wbdv"
+          [ngClass]="{'active': course.id == courseId}">
+        <a routerLink="/course/{{course.id}}/section">
+          {{course.title}}
+        </a>
+      </li>
+    </ul>
+  </div>
 
-  <a routerLink="/profile">Profile</a>
-  <a routerLink="/home">Home</a>
+  <div class="col-8">
+    <app-section-list></app-section-list>
+  </div>
 </div>

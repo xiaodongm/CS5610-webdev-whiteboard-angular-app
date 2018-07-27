@@ -13,6 +13,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'admin', component: AdminComponent},
+  { path: 'course/:courseId/section', component: AdminComponent },
   { path: 'course/:courseId', component: CourseViewerComponent },
   { path: 'course/:courseId/module/:moduleId', component: CourseViewerComponent },
   { path: 'course/:courseId/module/:moduleId/lesson/:lessonId', component: CourseViewerComponent },
