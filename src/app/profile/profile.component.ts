@@ -19,8 +19,10 @@ export class ProfileComponent implements OnInit {
   user = new User();
   sections = [];
 
-  update(user) {
-    console.log(user);
+  update() {
+    console.log(this.user);
+    this.service
+      .update(this.user);
   }
 
   logout() {
@@ -34,8 +36,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.service
       .profile()
-      .then(user =>
-        this.user.username = user.username);
+      .then(user => {
+        this.user = user;
+      });
 
     // this.sectionService
     //   .findSectionsForStudent()
