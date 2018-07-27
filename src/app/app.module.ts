@@ -20,6 +20,7 @@ import { WidgetListComponent } from './widget-list/widget-list.component';
 import {WidgetServiceClient} from './services/widget.service.client';
 import { TopicTabsComponent } from './topic-tabs/topic-tabs.component';
 import {TopicServiceClient} from './services/topic.service.client';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {TopicServiceClient} from './services/topic.service.client';
     ModuleListComponent,
     LessonTabsComponent,
     WidgetListComponent,
-    TopicTabsComponent
+    TopicTabsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
