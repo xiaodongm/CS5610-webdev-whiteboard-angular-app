@@ -21,10 +21,11 @@ export class SectionListComponent implements OnInit {
 
   loadSections(courseId) {
     this.section.courseId = courseId;
-    this
-      .service
-      .findSectionsForCourse(courseId)
-      .then(sections => this.sections = sections);
+    if (this.section.courseId) {
+      this.service
+        .findSectionsForCourse(courseId)
+        .then(sections => this.sections = sections);
+    }
   }
 
   createSection(sectionName, seats) {
@@ -36,13 +37,11 @@ export class SectionListComponent implements OnInit {
       });
   }
 
-  enroll(section) {
+  delete(section) {
     // alert(section._id);
     this.service
-      .enrollStudentInSection(section._id)
-      .then(() => {
-        this.router.navigate(['profile']);
-      });
+      .deleteSection(section._id)
+      .then(() => this.loadSections(this.section.courseId));
   }
 
   ngOnInit() {

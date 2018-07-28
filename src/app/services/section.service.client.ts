@@ -18,6 +18,13 @@ export class SectionServiceClient {
     });
   }
 
+  deleteSection(sectionId) {
+    const url = 'http://localhost:4000/api/section/' + sectionId;
+    return fetch(url, {
+      method: 'delete'
+    });
+  }
+
   findSectionsForCourse(courseId) {
     return fetch(this.SECTION_URL.replace('COURSEID', courseId))
       .then(response => response.json());
