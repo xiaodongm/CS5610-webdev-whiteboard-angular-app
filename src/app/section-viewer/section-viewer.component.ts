@@ -32,19 +32,41 @@ export class SectionViewerComponent implements OnInit {
       .then(sections => this.sections = sections);
   }
 
+  findDuplicateSections(section, sections) {
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[0].section._id === section._id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   enroll(userId, section) {
-    this.service
-      .enrollStudentInSection(userId, section._id)
-      .then((response) => {
-        return response.json();
-      })
-      .then(response => {
-        if (response.err) {
-          alert('Please log in before enroll!');
-        } else {
-          this.router.navigate(['profile']);
-        }
-      });
+    if (section.seats === 0) {
+      alert('No available seat for this section!');
+    } else {
+      let enrolledSections;
+      this.service.findSectionsForStudent(this.userId)
+        .then(sections => enrolledSections = sections)
+        .then(() => {
+          if (this.findDuplicateSections(section, enrolledSections)) {
+          alert('Student already enrolled in this Section, can not enroll again!');
+          } else {
+            this.service
+              .enrollStudentInSection(userId, section._id)
+              .then((response) => {
+                return response.json();
+              })
+              .then(response => {
+                if (response.err) {
+                  alert('Please log in before enroll!');
+                } else {
+                  this.router.navigate(['profile']);
+                }
+              });
+          }
+        });
+    }
   }
 
   ngOnInit() {

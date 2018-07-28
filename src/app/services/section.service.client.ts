@@ -25,6 +25,17 @@ export class SectionServiceClient {
     });
   }
 
+  updateSection(section) {
+    return fetch('http://localhost:4000/api/section/' + section._id, {
+      method: 'put',
+      body: JSON.stringify(section),
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+  }
+
   unEnrollSection(userId, sectionId) {
     const url = 'http://localhost:4000/api/student/' + userId + '/section/' + sectionId;
     return fetch(url, {

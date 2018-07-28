@@ -45,11 +45,17 @@ export class SectionListComponent implements OnInit {
   }
 
   delete(section) {
-    // alert(section._id);
     this.service
       .deleteSection(section._id)
       .then(() => this.loadSections(this.section.courseId));
   }
+
+  update(section) {
+    this.service
+      .updateSection(section)
+      .then(() => this.loadSections(this.section.courseId));
+  }
+
 
   ngOnInit() {
   }

@@ -14,7 +14,13 @@
     <li *ngFor="let section of sections" class="list-group-item">
       {{section.name}} Seats: {{section.seats}}
       <button (click)="delete(section)"
-              class="float-right btn btn-primary">Delete</button>
+              class="btn btn-danger float-right">Delete</button>
+      <button (click)="update(section)"
+              class="btn btn-warning float-right">Update</button>
+      <div>
+        <input [(ngModel)]="section.name" class="form-control" placeholder="update section name">
+        <input [(ngModel)]="section.seats" class="form-control" placeholder="update section seats">
+      </div>
     </li>
   </ul>
 
