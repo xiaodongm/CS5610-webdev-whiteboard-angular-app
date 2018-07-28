@@ -29,12 +29,19 @@ export class SectionListComponent implements OnInit {
   }
 
   createSection(sectionName, seats) {
-    this
-      .service
-      .createSection(this.section.courseId, sectionName, seats)
-      .then(() => {
-        this.loadSections(this.section.courseId);
-      });
+    if (!this.section.courseId) {
+      alert('Please select a course before create section');
+    } else {
+        if (this.section.name && this.section.seats) {
+          this.service
+            .createSection(this.section.courseId, sectionName, seats)
+            .then(() => {
+              this.loadSections(this.section.courseId);
+            });
+        } else {
+          alert('Please enter valid section name and seats');
+        }
+    }
   }
 
   delete(section) {

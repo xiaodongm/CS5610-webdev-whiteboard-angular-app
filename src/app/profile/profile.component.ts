@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   // user = {};
   user = new User();
+  userId;
   sections = [];
 
   update() {
@@ -33,16 +34,28 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  unEnroll(userId, sectionId) {
+    this.sectionService.unEnrollSection(userId, sectionId)
+      .then(() => this.sectionService.findSectionsForStudent(userId))
+      .then(sections => this.sections = sections);
+  }
+
   ngOnInit() {
     this.service
       .profile()
       .then(user => {
-        this.user = user;
+        if (user.err) {
+          alert('You have not logged in!');
+        } else {
+          this.user = user;
+          this.userId = user._id;
+        }
+      }).then(() => { if (this.userId) {
+      this.sectionService
+      .findSectionsForStudent(this.userId)
+      .then(sections => this.sections = sections ); }
       });
 
-    this.sectionService
-      .findSectionsForStudent()
-      .then(sections => this.sections = sections );
   }
 
 
