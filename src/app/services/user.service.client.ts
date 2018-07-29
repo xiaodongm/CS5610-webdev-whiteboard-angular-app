@@ -38,6 +38,13 @@ export class UserServiceClient {
     });
   }
 
+  delete() {
+    return fetch('http://localhost:4000/api/profile', {
+      method: 'delete',
+      credentials: 'include'
+    });
+  }
+
   profile() {
     return fetch('http://localhost:4000/api/profile',
       {

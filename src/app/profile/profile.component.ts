@@ -39,6 +39,11 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  delete() {
+    this.service.delete()
+      .then(() => this.logout());
+  }
+
   findEnrolledCourses() {
     this.courseService.findAllCourses()
       .then(courses => this.courses = courses)
