@@ -1535,30 +1535,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SectionServiceClient", function() { return SectionServiceClient; });
 var SectionServiceClient = /** @class */ (function () {
     function SectionServiceClient() {
-        this.SECTION_URL = 'http://localhost:4000/api/course/COURSEID/section';
+        // SECTION_URL = 'http://localhost:4000/api/course/COURSEID/section';
+        this.SECTION_URL = 'https://whiteboard-nodejs-server.herokuapp.com/api/course/COURSEID/section';
     }
     SectionServiceClient.prototype.findSectionsForStudent = function (userId) {
-        var url = 'http://localhost:4000/api/student/' + userId + '/section';
+        var url = 'https://whiteboard-nodejs-server.herokuapp.com/api/student/' + userId + '/section';
         return fetch(url, {
             credentials: 'include'
         })
             .then(function (response) { return response.json(); });
     };
     SectionServiceClient.prototype.enrollStudentInSection = function (userId, sectionId) {
-        var url = 'http://localhost:4000/api/student/' + userId + '/section/' + sectionId;
+        var url = 'https://whiteboard-nodejs-server.herokuapp.com/api/student/' + userId + '/section/' + sectionId;
         return fetch(url, {
             method: 'post',
             credentials: 'include'
         });
     };
     SectionServiceClient.prototype.deleteSection = function (sectionId) {
-        var url = 'http://localhost:4000/api/section/' + sectionId;
+        var url = 'https://whiteboard-nodejs-server.herokuapp.com/api/section/' + sectionId;
         return fetch(url, {
             method: 'delete'
         });
     };
     SectionServiceClient.prototype.updateSection = function (section) {
-        return fetch('http://localhost:4000/api/section/' + section._id, {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/section/' + section._id, {
             method: 'put',
             body: JSON.stringify(section),
             credentials: 'include',
@@ -1568,7 +1569,7 @@ var SectionServiceClient = /** @class */ (function () {
         });
     };
     SectionServiceClient.prototype.unEnrollSection = function (userId, sectionId) {
-        var url = 'http://localhost:4000/api/student/' + userId + '/section/' + sectionId;
+        var url = 'https://whiteboard-nodejs-server.herokuapp.com/api/student/' + userId + '/section/' + sectionId;
         return fetch(url, {
             method: 'delete',
             credentials: 'include',
@@ -1635,7 +1636,7 @@ var UserServiceClient = /** @class */ (function () {
     function UserServiceClient() {
     }
     UserServiceClient.prototype.findUserById = function (userId) {
-        return fetch('http://localhost:4000/api/user/' + userId)
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/user/' + userId)
             .then(function (response) { return response.json(); });
     };
     UserServiceClient.prototype.login = function (username, password) {
@@ -1643,7 +1644,7 @@ var UserServiceClient = /** @class */ (function () {
             username: username,
             password: password
         };
-        return fetch('http://localhost:4000/api/login', {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/login', {
             method: 'post',
             body: JSON.stringify(credentials),
             credentials: 'include',
@@ -1653,13 +1654,13 @@ var UserServiceClient = /** @class */ (function () {
         });
     };
     UserServiceClient.prototype.logout = function () {
-        return fetch('http://localhost:4000/api/logout', {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/logout', {
             method: 'post',
             credentials: 'include'
         });
     };
     UserServiceClient.prototype.update = function (user) {
-        return fetch('http://localhost:4000/api/profile', {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/profile', {
             method: 'put',
             body: JSON.stringify(user),
             credentials: 'include',
@@ -1669,13 +1670,13 @@ var UserServiceClient = /** @class */ (function () {
         });
     };
     UserServiceClient.prototype.delete = function () {
-        return fetch('http://localhost:4000/api/profile', {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/profile', {
             method: 'delete',
             credentials: 'include'
         });
     };
     UserServiceClient.prototype.profile = function () {
-        return fetch('http://localhost:4000/api/profile', {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/profile', {
             credentials: 'include',
         })
             .then(function (response) { return response.json(); });
@@ -1685,7 +1686,7 @@ var UserServiceClient = /** @class */ (function () {
             username: username,
             password: password
         };
-        return fetch('http://localhost:4000/api/register', {
+        return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/register', {
             body: JSON.stringify(user),
             credentials: 'include',
             method: 'post',
