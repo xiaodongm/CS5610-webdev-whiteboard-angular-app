@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
   update() {
     console.log(this.user);
     this.service
-      .update(this.user);
+      .update(this.user).then(() => alert('Update Successful!'));
   }
 
   logout() {
@@ -40,8 +40,10 @@ export class ProfileComponent implements OnInit {
   }
 
   delete() {
-    this.service.delete()
-      .then(() => this.logout());
+    if (confirm('Do you really want to delete this user profile?')) {
+      this.service.delete()
+        .then(() => this.logout());
+    }
   }
 
   findEnrolledCourses() {
@@ -52,15 +54,15 @@ export class ProfileComponent implements OnInit {
           .findSectionsForStudent(this.userId)
           .then(sections => this.sections = sections)
           .then(() => {
+            this.enrolledCourses = new Array();
             for (let i = 0; i < this.sections.length; i++) {
               for (let j = 0; j < this.courses.length; j++) {
                 if (this.sections[i].section.courseId === this.courses[j].id) {
-                  this.enrolledCourses = new Array();
                   this.enrolledCourses.push(this.courses[j]);
-                  return this.enrolledCourses;
                 }
               }
             }
+            return this.enrolledCourses;
           });
       });
   }
@@ -69,8 +71,7 @@ export class ProfileComponent implements OnInit {
     this.sectionService.unEnrollSection(userId, sectionId)
       .then(() => this.sectionService.findSectionsForStudent(userId))
       .then(sections => this.sections = sections)
-      .then(() => this.findEnrolledCourses())
-      .then(enrolledCourses => this.enrolledCourses);
+      .then(() => this.findEnrolledCourses());
   }
 
   ngOnInit() {

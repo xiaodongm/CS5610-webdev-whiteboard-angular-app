@@ -1,16 +1,17 @@
 <div class="container-fluid">
-  <h1>
-    White Board
-  </h1>
 
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
-  <a *ngIf="userId" routerLink="/profile">Profile</a>
+  <h1>White Board</h1>
+
+  <a id="login" routerLink="/login" class="btn btn-info">Login</a>
+  <a id="register" routerLink="/register" class="btn btn-info">Register</a>
+  <a *ngIf="userId" routerLink="/profile" class="btn btn-info">Profile</a>
   <!--<a routerLink="/quizzes">Quizzes</a>-->
 
-  <h4 *ngIf="userId">Logged in as : {{user.username}}</h4>
+  <hr *ngIf="userId" class="my-4">
+  <h4 id="user" *ngIf="userId">Logged in as : {{user.username}}</h4>
+  <hr *ngIf="userId" class="my-4">
 
-  <h3>Enrolled Courses</h3>
+  <h3 *ngIf="userId">Enrolled Courses ({{enrolledCourses.length}})</h3>
 
   <ul class="list-group">
     <li *ngFor="let course of enrolledCourses" class="list-group-item">
@@ -19,6 +20,7 @@
          class="btn btn-primary float-right">View</a>
     </li>
   </ul>
+  <hr class="my-4">
 
   <app-course-grid></app-course-grid>
 </div>

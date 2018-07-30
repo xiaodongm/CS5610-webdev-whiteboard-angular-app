@@ -53,7 +53,8 @@ export class SectionListComponent implements OnInit {
   update(section) {
     this.service
       .updateSection(section)
-      .then(() => this.loadSections(this.section.courseId));
+      .then(() => this.loadSections(this.section.courseId))
+      .then(() => alert('Update Successful !'));
   }
 
 

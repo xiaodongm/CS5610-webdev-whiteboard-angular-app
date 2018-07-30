@@ -3,7 +3,8 @@
 
   <input [(ngModel)]="user.username"
          placeholder="username"
-         class="form-control"/>
+         class="form-control"
+         readonly/>
   <input [(ngModel)]="user.firstName"
          placeholder="first name"
          class="form-control"/>
@@ -24,18 +25,10 @@
     Update
   </button>
 
+  <hr class="my-3">
+
   <h2>Enrolled Courses ({{enrolledCourses.length}})</h2>
-  <!--<div class="row">-->
-    <!--<div *ngFor="let course of enrolledCourses" class="col-sm-3">-->
-      <!--<div class="card">-->
-        <!--<div class="card-body">-->
-          <!--<h5 class="card-title">{{course.title}}</h5>-->
-          <!--<a routerLink="/course/{{course.id}}"-->
-             <!--class="btn btn-primary">View</a>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
+
   <ul class="list-group">
     <li *ngFor="let course of enrolledCourses" class="list-group-item">
       <strong>{{course.title}}</strong>
@@ -43,22 +36,26 @@
          class="btn btn-primary float-right">View</a>
     </li>
   </ul>
+  <hr class="my-3">
 
   <h2>Sections ({{sections.length}})</h2>
 
   <ul class="list-group">
     <li *ngFor="let enrollment of sections" class="list-group-item">
-      {{enrollment.section.name}}
+     <span> {{enrollment.section.name}}
       ({{enrollment.section.seats}})
+      | Grade: {{enrollment.grade}}</span>
       <button (click)="unEnroll(userId, enrollment.section._id)"
-              class="btn btn-warning float-right">Un-enroll
+              class="btn btn-outline-danger float-right">Un-Enroll
       </button>
     </li>
   </ul>
 
-  <a (click)="logout()">Logout</a>
-  <a routerLink="/home">Home</a>
-  <a *ngIf="user.username === 'admin' && user.password === 'admin'" routerLink="/admin">Admin</a>
-  <button (click)="delete()" class="btn btn-danger">Delete Profile</button>
+  <a id="logout" class="btn btn-warning" (click)="logout()">Logout</a>
+  <a id="home" class="btn btn-primary" routerLink="/home">Home</a>
+  <a id="admin" *ngIf="user.username === 'admin' && user.password === 'admin'"
+     routerLink="/admin"
+     class="btn btn-dark">Admin</a>
+  <button id="delete" (click)="delete()" class="btn btn-danger">Delete Profile</button>
 
 </div>
