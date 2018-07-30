@@ -1,7 +1,7 @@
 export class UserServiceClient {
 
   findUserById(userId) {
-    return fetch('http://localhost:4000/api/user/' + userId)
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/user/' + userId)
       .then(response => response.json());
   }
 
@@ -10,7 +10,7 @@ export class UserServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:4000/api/login', {
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/login', {
       method: 'post',
       body: JSON.stringify(credentials),
       credentials: 'include',
@@ -21,14 +21,14 @@ export class UserServiceClient {
   }
 
   logout() {
-    return fetch('http://localhost:4000/api/logout', {
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/logout', {
       method: 'post',
       credentials: 'include'
     });
   }
 
   update(user) {
-    return fetch('http://localhost:4000/api/profile', {
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/profile', {
       method: 'put',
       body: JSON.stringify(user),
       credentials: 'include',
@@ -39,14 +39,14 @@ export class UserServiceClient {
   }
 
   delete() {
-    return fetch('http://localhost:4000/api/profile', {
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/profile', {
       method: 'delete',
       credentials: 'include'
     });
   }
 
   profile() {
-    return fetch('http://localhost:4000/api/profile',
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/profile',
       {
         credentials: 'include', // include, same-origin, *omit
       })
@@ -58,7 +58,7 @@ export class UserServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:4000/api/register', {
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/register', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       method: 'post',

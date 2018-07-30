@@ -1,9 +1,10 @@
 export class SectionServiceClient {
 
-  SECTION_URL = 'http://localhost:4000/api/course/COURSEID/section';
+  // SECTION_URL = 'http://localhost:4000/api/course/COURSEID/section';
+  SECTION_URL = 'https://whiteboard-nodejs-server.herokuapp.com/api/course/COURSEID/section';
 
   findSectionsForStudent(userId) {
-    const url = 'http://localhost:4000/api/student/' + userId + '/section';
+    const url = 'https://whiteboard-nodejs-server.herokuapp.com/api/student/' + userId + '/section';
     return fetch(url, {
       credentials: 'include'
     })
@@ -11,7 +12,7 @@ export class SectionServiceClient {
   }
 
   enrollStudentInSection(userId, sectionId) {
-    const url = 'http://localhost:4000/api/student/' + userId + '/section/' + sectionId;
+    const url = 'https://whiteboard-nodejs-server.herokuapp.com/api/student/' + userId + '/section/' + sectionId;
     return fetch(url, {
       method: 'post',
       credentials: 'include'
@@ -19,14 +20,14 @@ export class SectionServiceClient {
   }
 
   deleteSection(sectionId) {
-    const url = 'http://localhost:4000/api/section/' + sectionId;
+    const url = 'https://whiteboard-nodejs-server.herokuapp.com/api/section/' + sectionId;
     return fetch(url, {
       method: 'delete'
     });
   }
 
   updateSection(section) {
-    return fetch('http://localhost:4000/api/section/' + section._id, {
+    return fetch('https://whiteboard-nodejs-server.herokuapp.com/api/section/' + section._id, {
       method: 'put',
       body: JSON.stringify(section),
       credentials: 'include',
@@ -37,7 +38,7 @@ export class SectionServiceClient {
   }
 
   unEnrollSection(userId, sectionId) {
-    const url = 'http://localhost:4000/api/student/' + userId + '/section/' + sectionId;
+    const url = 'https://whiteboard-nodejs-server.herokuapp.com/api/student/' + userId + '/section/' + sectionId;
     return fetch(url, {
       method: 'delete',
       credentials: 'include',
