@@ -38,18 +38,14 @@ export class SectionListComponent implements OnInit {
     if (!this.section.courseId) {
       alert('Please select a course before create section');
     } else {
-      console.log(this.section.seats);
         if (this.section.seats) {
-          console.log(this.section.seats);
           if (!this.section.name) {
-            console.log(this.course.name);
             this.service
               .createSection(this.section.courseId, this.course.name + 'Section ' + this.sections.length, seats)
               .then(() => {
                 this.loadSections(this.section.courseId);
               });
           } else {
-            console.log(this.section.name)
             this.service
               .createSection(this.section.courseId, sectionName, seats)
               .then(() => {

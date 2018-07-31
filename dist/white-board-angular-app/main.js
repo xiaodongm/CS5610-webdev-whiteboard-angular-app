@@ -1224,6 +1224,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_section_model_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/section.model.client */ "./src/app/models/section.model.client.ts");
 /* harmony import */ var _services_section_service_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/section.service.client */ "./src/app/services/section.service.client.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_course_service_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/course.service.client */ "./src/app/services/course.service.client.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1237,15 +1238,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SectionListComponent = /** @class */ (function () {
-    function SectionListComponent(service, router, route) {
+    function SectionListComponent(service, courseService, router, route) {
         var _this = this;
         this.service = service;
+        this.courseService = courseService;
         this.router = router;
         this.route = route;
         this.section = new _models_section_model_client__WEBPACK_IMPORTED_MODULE_1__["Section"]();
         this.sections = [];
-        this.route.params.subscribe(function (params) { return _this.loadSections(params['courseId']); });
+        this.route.params.subscribe(function (params) {
+            _this.loadSections(params['courseId']);
+            _this.courseService.findCourseById(params['courseId'])
+                .then(function (course) { return _this.course = course; });
+        });
     }
     SectionListComponent.prototype.loadSections = function (courseId) {
         var _this = this;
@@ -1262,12 +1269,21 @@ var SectionListComponent = /** @class */ (function () {
             alert('Please select a course before create section');
         }
         else {
-            if (this.section.name && this.section.seats) {
-                this.service
-                    .createSection(this.section.courseId, sectionName, seats)
-                    .then(function () {
-                    _this.loadSections(_this.section.courseId);
-                });
+            if (this.section.seats) {
+                if (!this.section.name) {
+                    this.service
+                        .createSection(this.section.courseId, this.course.name + 'Section ' + this.sections.length, seats)
+                        .then(function () {
+                        _this.loadSections(_this.section.courseId);
+                    });
+                }
+                else {
+                    this.service
+                        .createSection(this.section.courseId, sectionName, seats)
+                        .then(function () {
+                        _this.loadSections(_this.section.courseId);
+                    });
+                }
             }
             else {
                 alert('Please enter valid section name and seats');
@@ -1296,6 +1312,7 @@ var SectionListComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./section-list.component.css */ "./src/app/section-list/section-list.component.css")]
         }),
         __metadata("design:paramtypes", [_services_section_service_client__WEBPACK_IMPORTED_MODULE_2__["SectionServiceClient"],
+            _services_course_service_client__WEBPACK_IMPORTED_MODULE_4__["CourseServiceClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], SectionListComponent);
@@ -1324,7 +1341,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <h1>Sections for course: {{section.courseId}}</h1>\n  <a routerLink=\"/home\">Home</a>\n  <ul class=\"list-group\">\n    <li *ngFor=\"let section of sections\" class=\"list-group-item\">\n      {{section.name}} Seats: {{section.seats}}\n      <button (click)=\"enroll(userId, section)\"\n              class=\"float-right btn btn-primary\">Enroll</button>\n    </li>\n  </ul>\n\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <h1>Sections for {{course.name}}</h1>\n  <a routerLink=\"/home\">Home</a>\n  <ul class=\"list-group\">\n    <li *ngFor=\"let section of sections\" class=\"list-group-item\">\n      {{section.name}} Seats: {{section.seats}}\n      <button (click)=\"enroll(userId, section)\"\n              class=\"float-right btn btn-primary\">Enroll</button>\n    </li>\n  </ul>\n\n</div>\n"
 
 /***/ }),
 
@@ -1344,6 +1361,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_section_model_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/section.model.client */ "./src/app/models/section.model.client.ts");
 /* harmony import */ var _models_user_model_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/user.model.client */ "./src/app/models/user.model.client.ts");
 /* harmony import */ var _services_user_service_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/user.service.client */ "./src/app/services/user.service.client.ts");
+/* harmony import */ var _services_course_service_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/course.service.client */ "./src/app/services/course.service.client.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1359,17 +1377,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SectionViewerComponent = /** @class */ (function () {
-    function SectionViewerComponent(service, userService, router, route) {
+    function SectionViewerComponent(service, userService, courseService, router, route) {
         var _this = this;
         this.service = service;
         this.userService = userService;
+        this.courseService = courseService;
         this.router = router;
         this.route = route;
         this.section = new _models_section_model_client__WEBPACK_IMPORTED_MODULE_3__["Section"]();
         this.sections = [];
         this.user = new _models_user_model_client__WEBPACK_IMPORTED_MODULE_4__["User"]();
-        this.route.params.subscribe(function (params) { return _this.loadSections(params['courseId']); });
+        this.route.params.subscribe(function (params) {
+            _this.loadSections(params['courseId']);
+            _this.courseService.findCourseById(params['courseId'])
+                .then(function (course) { return _this.course = course; });
+        });
     }
     SectionViewerComponent.prototype.loadSections = function (courseId) {
         var _this = this;
@@ -1435,6 +1459,7 @@ var SectionViewerComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_services_section_service_client__WEBPACK_IMPORTED_MODULE_1__["SectionServiceClient"],
             _services_user_service_client__WEBPACK_IMPORTED_MODULE_5__["UserServiceClient"],
+            _services_course_service_client__WEBPACK_IMPORTED_MODULE_6__["CourseServiceClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
     ], SectionViewerComponent);
