@@ -1272,7 +1272,7 @@ var SectionListComponent = /** @class */ (function () {
             if (this.section.seats) {
                 if (!this.section.name) {
                     this.service
-                        .createSection(this.section.courseId, this.course.name + 'Section ' + this.sections.length, seats)
+                        .createSection(this.section.courseId, this.course.title + ' Section ' + this.sections.length, seats)
                         .then(function () {
                         _this.loadSections(_this.section.courseId);
                     });
@@ -1341,7 +1341,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <h1>Sections for {{course.name}}</h1>\n  <a routerLink=\"/home\">Home</a>\n  <ul class=\"list-group\">\n    <li *ngFor=\"let section of sections\" class=\"list-group-item\">\n      {{section.name}} Seats: {{section.seats}}\n      <button (click)=\"enroll(userId, section)\"\n              class=\"float-right btn btn-primary\">Enroll</button>\n    </li>\n  </ul>\n\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <h1>Sections for {{course.title}}</h1>\n  <a routerLink=\"/home\">Home</a>\n  <ul class=\"list-group\">\n    <li *ngFor=\"let section of sections\" class=\"list-group-item\">\n      {{section.name}} Seats: {{section.seats}}\n      <button (click)=\"enroll(userId, section)\"\n              class=\"float-right btn btn-primary\">Enroll</button>\n    </li>\n  </ul>\n\n</div>\n"
 
 /***/ }),
 
