@@ -1272,7 +1272,7 @@ var SectionListComponent = /** @class */ (function () {
             if (this.section.seats) {
                 if (!this.section.name) {
                     this.service
-                        .createSection(this.section.courseId, this.course.title + ' Section ' + this.sections.length + 1, seats)
+                        .createSection(this.section.courseId, this.course.title + ' Section ' + (this.sections.length + 1), seats)
                         .then(function () {
                         _this.loadSections(_this.section.courseId);
                     });
@@ -1405,9 +1405,6 @@ var SectionViewerComponent = /** @class */ (function () {
     };
     SectionViewerComponent.prototype.findDuplicateSections = function (section, sections) {
         for (var i = 0; i < sections.length; i++) {
-            // if (sections[i].section._id === section._id) {
-            //   return true;
-            // }
             if (sections[i].section.courseId === this.course.id) {
                 return true;
             }

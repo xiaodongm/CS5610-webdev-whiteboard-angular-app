@@ -40,9 +40,6 @@ export class SectionViewerComponent implements OnInit {
 
   findDuplicateSections(section, sections) {
     for (let i = 0; i < sections.length; i++) {
-      // if (sections[i].section._id === section._id) {
-      //   return true;
-      // }
       if (sections[i].section.courseId === this.course.id) {
         return true;
       }
