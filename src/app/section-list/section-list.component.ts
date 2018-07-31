@@ -38,6 +38,7 @@ export class SectionListComponent implements OnInit {
     if (!this.section.courseId) {
       alert('Please select a course before create section');
     } else {
+      console.log(this.section.seats);
         if (this.section.seats) {
           console.log(this.section.seats);
           if (!this.section.name) {

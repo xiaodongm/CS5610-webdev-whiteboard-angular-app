@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Section} from '../models/section.model.client';
 import {User} from '../models/user.model.client';
 import {UserServiceClient} from '../services/user.service.client';
+import {CourseServiceClient} from '../services/course.service.client';
 
 @Component({
   selector: 'app-section-viewer',
@@ -14,15 +15,20 @@ export class SectionViewerComponent implements OnInit {
 
   constructor(private service: SectionServiceClient,
               private userService: UserServiceClient,
+              private courseService: CourseServiceClient,
               private router: Router,
               private route: ActivatedRoute) {
-    this.route.params.subscribe(params => this.loadSections(params['courseId']));
+    this.route.params.subscribe(params => {this.loadSections(params['courseId']);
+      this.courseService.findCourseById(params['courseId'])
+        .then(course => this.course = course);
+    });
   }
 
   section: Section = new Section();
   sections = [];
   user = new User();
   userId;
+  course;
 
   loadSections(courseId) {
     this.section.courseId = courseId;
