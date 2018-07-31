@@ -56,7 +56,7 @@ export class SectionViewerComponent implements OnInit {
         .then(sections => enrolledSections = sections)
         .then(() => {
           if (this.findDuplicateSections(section, enrolledSections)) {
-          alert('Student already enrolled in this Section, can not enroll again!');
+          alert('Student already enrolled in one Section of current class, can not enroll again!');
           } else {
             this.service
               .enrollStudentInSection(userId, section._id)

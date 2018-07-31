@@ -1422,7 +1422,7 @@ var SectionViewerComponent = /** @class */ (function () {
                 .then(function (sections) { return enrolledSections_1 = sections; })
                 .then(function () {
                 if (_this.findDuplicateSections(section, enrolledSections_1)) {
-                    alert('Student already enrolled in this Section, can not enroll again!');
+                    alert('Student already enrolled in one Section of current class, can not enroll again!');
                 }
                 else {
                     _this.service
