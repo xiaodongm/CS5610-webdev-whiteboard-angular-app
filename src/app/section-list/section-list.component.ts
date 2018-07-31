@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Section} from '../models/section.model.client';
 import {SectionServiceClient} from '../services/section.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CourseServiceClient} from '../services/course.service.client';
 
 @Component({
   selector: 'app-section-list',
@@ -11,13 +12,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class SectionListComponent implements OnInit {
 
   constructor(private service: SectionServiceClient,
+              private courseService: CourseServiceClient,
               private router: Router,
               private route: ActivatedRoute) {
-    this.route.params.subscribe(params => this.loadSections(params['courseId']));
+    this.route.params.subscribe(params => {this.loadSections(params['courseId']);
+    this.courseService.findCourseById(params['courseId'])
+      .then(course => this.course = course);
+    });
   }
 
   section: Section = new Section();
   sections = [];
+  course;
 
   loadSections(courseId) {
     this.section.courseId = courseId;
@@ -32,12 +38,20 @@ export class SectionListComponent implements OnInit {
     if (!this.section.courseId) {
       alert('Please select a course before create section');
     } else {
-        if (this.section.name && this.section.seats) {
-          this.service
-            .createSection(this.section.courseId, sectionName, seats)
-            .then(() => {
-              this.loadSections(this.section.courseId);
-            });
+        if (this.section.seats) {
+          if (!this.section.name) {
+            this.service
+              .createSection(this.section.courseId, this.course.name + 'Section ' + this.sections.length, seats)
+              .then(() => {
+                this.loadSections(this.section.courseId);
+              });
+          } else {
+            this.service
+              .createSection(this.section.courseId, sectionName, seats)
+              .then(() => {
+                this.loadSections(this.section.courseId);
+              });
+          }
         } else {
           alert('Please enter valid section name and seats');
         }
